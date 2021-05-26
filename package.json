@@ -1,13 +1,18 @@
 {
   "name": "demo",
   "version": "0.0.0",
+  "author": "Luis Vanegas",
+  "description": "Demo Angular Electron App",
+  "main": "electron-main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron-start": "electron .",
+    "build-win": "ng build --prod && electron-packager . electron-tutorial-app --overwrite --ignore=(\"e2e|node_modules|src|.browserslistrc|.editorconfig|.gitignore|angular.json|karma.conf.js|package.lock.json|README.md|tsconfig.app.json|tsconfig.json|tsconfig.spec.json|tslint.json\") --asar --platform=win32 --arch=ia32 --icon=./dist/angular-build/assets/icons8-connect-256.ico --prune=true --out=./dist/electron-build --version-string.CompanyName=Corasco --version-string.FileDescription=Corasco --version-string.ProductName=\"Electron Tutorial App\""
   },
   "private": true,
   "dependencies": {
@@ -30,6 +35,8 @@
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "electron": "^13.0.1",
+    "electron-packager": "^15.2.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.1.0",

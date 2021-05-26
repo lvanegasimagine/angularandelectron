@@ -1,0 +1,57 @@
+https://www.electronjs.org/docs/tutorial/quick-start
+npm i --save-dev electron
+Modifica el package.json
+"author": "Luis Vanegas",
+"description": "Demo Angular Electron App",
+"main": "electron-main.js",
+"scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "electron-start": "electron ."
+},
+crea el archivo electron-main.js
+const { app, BrowserWindow } = require('electron');
+
+function createWindow () {
+    const win = new BrowserWindow({
+      width: 800,
+      height: 600,
+    //   webPreferences:{
+    //       nodeIntegration: true
+    //   }
+    });
+
+    win.loadFile('./dist/demo/index.html');
+}
+
+app.whenReady().then(() => {
+    createWindow();
+});
+
+app.on('window-all-closed', () =>{
+    if (process.platform !== 'darwin'){
+        app.quit();
+    }
+});
+
+app.on('activate', () =>{
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+    }
+});
+importante primero hacer el build ng build --prod y quitar en el index.html el basehref
+
+
+Realizar Archivo ejecutable
+
+1- npm install electron-packager --save-dev
+2- configurar angular.json para salida 
+"options": {
+    "outputPath": "dist/angular-build",
+}
+3-package.json
+"build-win": "ng build --prod && electron-packager . electron-tutorial-app --overwrite --ignore=(\"e2e|node_modules|src|.browserslistrc|.editorconfig|.gitignore|angular.json|karma.conf.js|package.lock.json|README.md|tsconfig.app.json|tsconfig.json|tsconfig.spec.json|tslint.json\") --asar --platform=win32 --arch=ia32 --icon=./dist/angular-build/assets/icons8-connect-256.ico --prune=true --out=./dist/electron-build --version-string.CompanyName=Corasco --version-string.FileDescription=Corasco --version-string.ProductName=\"Electron Tutorial App\""
